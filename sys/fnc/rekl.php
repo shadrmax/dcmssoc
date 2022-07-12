@@ -17,7 +17,7 @@ function rekl($sel)
 			echo icons('rekl.png','code');
 
 		if ($post['dop_str'] == 1)
-			echo '<a' . ($set['web'] ? ' target="_blank"' : null) . ' href="http://' . $_SERVER['SERVER_NAME'] . '/go.php?go=' . $post['id'] . '">';
+			echo '<a' . ($set['web'] ? ' target="_blank"' : null) . ' href="http://' . htmlspecialchars($_SERVER['SERVER_NAME']) . '/go.php?go=' . $post['id'] . '">';
 		else
 			echo '<a' . ($set['web'] ? ' target="_blank"' : null) . ' href="' . $post['link'] . '">';
 
