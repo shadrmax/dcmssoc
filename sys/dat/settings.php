@@ -1,5 +1,5 @@
 <?php return array (
-  'dcms_version' => '1.9.12',
+  'dcms_version' => '1.9.13',
   'dcms_state' => 'stable',
   'meta_keywords' => 'DCMS Social',
   'meta_description' => 'dcms social cms',
