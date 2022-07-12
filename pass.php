@@ -286,7 +286,7 @@ $user2 = dbassoc($q);
 
 
 
-$new_sess=substr(md5(passgen()), 0, 20);
+$new_sess=substr(hash('haval160,3', passgen()), 0, 20);
 
 
 
@@ -326,7 +326,7 @@ $regmail = "Здравствуйте $user2[nick]<br />
 
 
 
-<a href='http://$_SERVER[HTTP_HOST]/pass.php?id=$user2[id]&amp;set_new=$new_sess'>http://$_SERVER[HTTP_HOST]/pass.php?id=$user2[id]&amp;set_new=$new_sess</a><br />
+<a href='http://$_SERVER[HTTP_HOST]/pass.php?id=$user2[id]&set_new=$new_sess'>http://$_SERVER[HTTP_HOST]/pass.php?id=$user2[id]&amp;set_new=$new_sess</a><br />
 
 
 
