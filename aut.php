@@ -28,7 +28,6 @@ include_once THEAD;
 title();
 aut();
 
-
 if ((!isset($_SESSION['refer']) || $_SESSION['refer']==NULL)
 && isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL &&
 !preg_match('#mail\.php#',$_SERVER['HTTP_REFERER']))

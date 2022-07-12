@@ -238,7 +238,7 @@ elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($
 
 
 
-$err ='Неверный адрес E-mail или информация о E-mail отсутствует';
+$err = 'Неверный адрес E-mail или информация о E-mail отсутствует';
 
 
 

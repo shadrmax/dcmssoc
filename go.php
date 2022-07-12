@@ -132,7 +132,6 @@ title();
 
 
 
-
 if (!isset($_GET['go']) || (dbresult(dbquery("SELECT COUNT(*) FROM `rekl` WHERE `id` = '".intval($_GET['go'])."'"),0)==0 && !preg_match('#^https?://#',@base64_decode($_GET['go']))))
 
 
