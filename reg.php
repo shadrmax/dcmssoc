@@ -56,7 +56,8 @@ elseif(dbresult(dbquery("SELECT COUNT(*) FROM `reg_mail` WHERE `mail` = '".my_es
 {
 $err[]="Пользователь с этим E-mail уже зарегистрирован";
 }
-}if (strlen2($_POST['pass1'])<6)$err[]='По соображениям безопасности пароль не может быть короче 6-ти символов';
+}
+if (strlen2($_POST['pass1'])<6)$err[]='По соображениям безопасности пароль не может быть короче 6-ти символов';
 if (strlen2($_POST['pass1'])>32)$err[]='Длина пароля превышает 32 символа';
 if ($_POST['pass1']!=$_POST['pass2'])$err[]='Пароли не совпадают';
 if (!isset($_SESSION['captcha']) || !isset($_POST['chislo']) || $_SESSION['captcha']!=$_POST['chislo']){$err[]='Неверное проверочное число';}
@@ -84,9 +85,16 @@ $adds .= "Content-Type: text/html; charset=utf-8\n";
 mail($_POST['ank_mail'],'=?utf-8?B?'.base64_encode($subject).'?=',$regmail,$adds);
 
 }
-else
-dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`) values('".$_SESSION['reg_nick']."', '".shif($_POST['pass1'])."', '$time', '$time', '".intval($_POST['pol'])."')",$db);
+else {
 
+    if ($_POST['ank_mail'] == NULL) $err[] = 'Неоходимо ввести Email';
+    elseif (!preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui', $_POST['ank_mail'])) $err[] = 'Неверный формат Email';
+    elseif (dbresult(dbquery("SELECT COUNT(*) FROM `reg_mail` WHERE `mail` = '" . my_esc($_POST['ank_mail']) . "'"), 0) != 0) {
+        $err[] = "Пользователь с этим E-mail уже зарегистрирован";
+    }
+
+    dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`, `ank_mail`) values('" . $_SESSION['reg_nick'] . "', '" . shif($_POST['pass1']) . "', '$time', '$time', '" . intval($_POST['pol']) . "', '".$_POST['ank_mail']."')", $db);
+}
 $user = dbassoc(dbquery("SELECT * FROM `user` WHERE `nick` = '".my_esc($_SESSION['reg_nick'])."' AND `pass` = '".shif($_POST['pass1'])."' LIMIT 1"));
 
 /*
@@ -160,6 +168,7 @@ if (isset($_SESSION['step']) && $_SESSION['step']==1)
 		echo "E-mail:<br /><input type='text' name='ank_mail' /><br />\n";
 		echo "* Указывайте ваш реальный адрес E-mail. На него придет код для активации аккаунта.<br />\n";
 	}
+    echo "E-mail:<br /><input type='text' name='ank_mail' /><br />\n";
 	echo "Введите пароль (6-32 символов):<br /><input type='password' name='pass1' maxlength='32' /><br />\n";
 	echo "Повторите пароль:<br /><input type='password' name='pass2' maxlength='32' /><br />\n";
 	echo "<img src='/captcha.php?$passgen&amp;SESS=$sess' width='100' height='30' alt='Проверочное число' /><br />\n<input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>\n";
