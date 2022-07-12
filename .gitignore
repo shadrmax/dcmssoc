@@ -6,6 +6,5 @@
 *.iml
 out
 gen
-launcher.php
 !/sys/dat/settings_6.2.dat
 !/sys/dat/shif_iv.dat
