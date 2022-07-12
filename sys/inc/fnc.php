@@ -615,12 +615,12 @@ function token_form()
 
 function status_version ()
 {
-    /*global $set;
+    global $set;
     $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
     $data = json_decode($content, TRUE);
 
 
-    return version_compare($set['dcms_version'], $data['stable']['version']);*/
+    return version_compare($set['dcms_version'], $data['stable']['version']);
 }
 
 
